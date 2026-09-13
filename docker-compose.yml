@@ -25,6 +25,19 @@ services:
             - monitoring
         depends_on:
             - loki
+    alloy:
+        image: grafana/alloy:latest
+        container_name: monitoring-alloy
 
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock # listen the docker API
+            - ./alloy/config.alloy:/etc/alloy/config.alloy #save to local alloy/config.alloy
+        command:  # when you start this container, it will run the command with the config file specified
+            - run
+            - /etc/alloy/config.alloy
+        networks:
+            - monitoring
+        depends_on: #depend on loki to ensure it starts after loki is up and running
+            - loki
 networks:
     monitoring:
