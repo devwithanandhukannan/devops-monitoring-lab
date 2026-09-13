@@ -33,7 +33,7 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock # listen the docker API
             - ./alloy/config.alloy:/etc/alloy/config.alloy #save to local alloy/config.alloy
         command:  # when you start this container, it will run the command with the config file specified
-            - run
+            - rundocker 
             - /etc/alloy/config.alloy
         networks:
             - monitoring
